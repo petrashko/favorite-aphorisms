@@ -1,0 +1,49 @@
+{
+    "aphorisms": [
+        {
+            "id": 1,
+            "author": "Неизвестный автор",
+            "text": "Изменения копятся постепенно, а реализуются скачкообразно",
+            "category": "work"
+        },
+        {
+            "id": 2,
+            "author": "Чингиз Айтматов",
+            "text": "Я хочу, чтобы человек, которого я люблю, не боялся открыто любить меня. Иначе это унизительно.",
+            "category": "love"
+        },
+        {
+            "id": 3,
+            "author": "Сократ",
+            "text": "Умный человек ничего не скажет, ему  все равно. А то что дурак скажет, мне все равно.",
+            "category": "other"
+        }
+    ],
+    "categories": [
+        {
+            "name": "all",
+            "label": "Все",
+            "className": "btn-outline-dark"
+        },
+        {
+            "name": "work",
+            "label": "Работа",
+            "className": "btn-danger"
+        },
+        {
+            "name": "health",
+            "label": "Здоровье",
+            "className": "btn-primary"
+        },
+        {
+            "name": "love",
+            "label": "Любовь",
+            "className": "btn-success"
+        },
+        {
+            "name": "other",
+            "label": "Прочее",
+            "className": "btn-secondary"
+        }
+    ]
+}
