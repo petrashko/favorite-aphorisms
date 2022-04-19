@@ -1,13 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 //
 import { useHttp}  from '../../hooks/http.hook';
-import { aphorismsFetching, aphorismsFetched, aphorismsFetchingError } from '../../actions';
-import AphorismListItem from "../aphorismListItem/AphorismListItem";
+import { aphorismsFetching, aphorismsFetched, aphorismsFetchingError, aphorismDeleted } from '../../actions';
+import AphorismItem from "../aphorismItem/AphorismItem";
 import Spinner from '../spinner/Spinner';
 
 const AphorismList = () => {
-    const {aphorisms, aphorismsLoadingStatus} = useSelector(state => state);
+    //
+    const filteredAphorismsSelector = createSelector(
+        state => state.category.activeCategory,
+        state => state.aphorism.aphorismList,
+        (filter, aphorismList) => {
+            if (filter === 'all') {
+                return aphorismList;
+            }
+            else {
+                return aphorismList.filter(item => item.category === filter)
+            }
+        }
+    );
+    const filteredAphorisms = useSelector(filteredAphorismsSelector);
+    //
+    const {aphorismLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -26,10 +42,31 @@ const AphorismList = () => {
         []
     );
 
-    if (aphorismsLoadingStatus === "loading") {
+    //
+    const onDelete = useCallback(
+        (id) => {
+            // Отправляем данные на сервер
+            request(`http://localhost:3030/aphorisms/${id}`, "DELETE")
+                .then(data => {
+                    console.log(data, 'Deleted');
+                })
+                .then(() => {
+                    // ТОЛЬКО если запрос успешен - отправляем данные в store
+                    dispatch(aphorismDeleted(id));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
+        },
+        // eslint-disable-next-line
+        [request]
+    );
+
+    if (aphorismLoadingStatus === "loading") {
         return <Spinner/>;
     }
-    else if (aphorismsLoadingStatus === "error") {
+    else if (aphorismLoadingStatus === "error") {
         return (
             <h5 className="text-center mt-5">Ошибка загрузки</h5>
         );
@@ -44,15 +81,16 @@ const AphorismList = () => {
 
         return arr.map(({id, ...props}) => {
             return (
-                <AphorismListItem
+                <AphorismItem
                     key={id}
                     {...props}
+                    onDelete={(ev) => onDelete(id)}
                 />
             );
         })
     }
 
-    const elements = renderAphorismList(aphorisms);
+    const elements = renderAphorismList(filteredAphorisms);
     //
     return (
         <ul>

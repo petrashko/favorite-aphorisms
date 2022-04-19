@@ -1,9 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 //
-import reducer from '../reducers/index.js';
+import aphorism from '../reducers/aphorism.js';
+import category from '../reducers/category.js';
 
 const store = createStore(
-    reducer,
+    combineReducers({aphorism, category}),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
