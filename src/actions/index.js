@@ -1,17 +1,29 @@
-export const aphorismsFetching = () => {
+export const fetchAphorisms = (request) => (dispatch) => {
+    dispatch( aphorismsFetching() );
+    //
+    request("http://localhost:3030/aphorisms")
+        .then(data => {
+            dispatch( aphorismsFetched(data) );
+        })
+        .catch(() => {
+            dispatch( aphorismsFetchingError() )
+        });
+}
+
+const aphorismsFetching = () => {
     return {
         type: 'APHORISMS_FETCHING'
     }
 }
 
-export const aphorismsFetched = (aphorisms) => {
+const aphorismsFetched = (aphorisms) => {
     return {
         type: 'APHORISMS_FETCHED',
         payload: aphorisms
     }
 }
 
-export const aphorismsFetchingError = () => {
+const aphorismsFetchingError = () => {
     return {
         type: 'APHORISMS_FETCHING_ERROR'
     }
@@ -19,20 +31,31 @@ export const aphorismsFetchingError = () => {
 
 //*******************************************************************
 
-export const categoriesFetching = () => {
+export const fetchCategories = (request) => (dispatch) => {
+    dispatch( categoriesFetching() );
+    request("http://localhost:3030/categories")
+        .then(data => {
+            dispatch( categoriesFetched(data) );
+        })
+        .catch(() => {
+            dispatch( categoriesFetchingError() );
+        });
+}
+
+const categoriesFetching = () => {
     return {
         type: 'CATEGORIES_FETCHING'
     }
 }
 
-export const categoriesFetched = (categories) => {
+const categoriesFetched = (categories) => {
     return {
         type: 'CATEGORIES_FETCHED',
         payload: categories
     }
 }
 
-export const categoriesFetchingError = () => {
+const categoriesFetchingError = () => {
     return {
         type: 'CATEGORIES_FETCHING_ERROR'
     }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 //
 import { useHttp}  from '../../hooks/http.hook';
-import { aphorismsFetching, aphorismsFetched, aphorismsFetchingError, aphorismDeleted } from '../../actions';
+import { fetchAphorisms, aphorismDeleted } from '../../actions';
 import AphorismItem from "../aphorismItem/AphorismItem";
 import Spinner from '../spinner/Spinner';
 
@@ -29,14 +29,7 @@ const AphorismList = () => {
 
     useEffect(() => 
         {
-            dispatch( aphorismsFetching() );
-            request("http://localhost:3030/aphorisms")
-                .then((data) => {
-                    dispatch( aphorismsFetched(data) );
-                })
-                .catch((err) => {
-                    dispatch( aphorismsFetchingError() );
-                });
+            dispatch( fetchAphorisms(request) );
         },
         // eslint-disable-next-line
         []

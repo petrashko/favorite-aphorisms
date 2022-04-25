@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 //
 import { useHttp } from '../../hooks/http.hook';
-import { categoriesFetching, categoriesFetched, categoriesFetchingError, activeCategoryChanged } from '../../actions';
+import { fetchCategories, activeCategoryChanged } from '../../actions';
 import Spinner from '../spinner/Spinner';
 
 const AphorismCategories = () => {
@@ -19,10 +19,7 @@ const AphorismCategories = () => {
     //
     useEffect(
         () => {
-            dispatch(categoriesFetching());
-            request("http://localhost:3030/categories")
-                .then(data => dispatch(categoriesFetched(data)))
-                .catch(() => dispatch(categoriesFetchingError()));
+            dispatch( fetchCategories(request) );
         },
         // eslint-disable-next-line
         []
