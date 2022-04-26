@@ -1,19 +1,15 @@
-// eslint-disable-next-line
-import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
-// eslint-disable-next-line
-import ReduxThunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 //
-import aphorism from '../reducers/aphorism.js';
-import category from '../reducers/category.js';
+import aphorism from './reducers/aphorism.js';
+import category from './reducers/category.js';
 
-const store = createStore(
-    combineReducers({aphorism, category}),
-    compose(
-        applyMiddleware(
-            ReduxThunk
-        ),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-);
+const store = configureStore({
+    reducer: {
+        aphorism,
+        category
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware(),
+    devTools: process.env.NODE_ENV !== 'production'
+});
 
 export default store;

@@ -1,9 +1,9 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 //
 import { useHttp}  from '../../hooks/http.hook';
-import { fetchAphorisms, aphorismDeleted } from '../../actions';
+import { fetchAphorisms, aphorismDeleted } from '../../store/actions';
 import AphorismItem from "../aphorismItem/AphorismItem";
 import Spinner from '../spinner/Spinner';
 
