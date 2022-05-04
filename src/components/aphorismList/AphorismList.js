@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 //
 import { useHttp}  from '../../hooks/http.hook';
-import { fetchAphorisms, aphorismDeleted } from '../../store/actions';
+import { fetchAphorisms } from '../../store/actions';
+import { aphorismDeleted } from '../../store/slices/aphorismSlice';
 import AphorismItem from "../aphorismItem/AphorismItem";
 import Spinner from '../spinner/Spinner';
 

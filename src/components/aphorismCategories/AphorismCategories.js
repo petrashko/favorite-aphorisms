@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 //
 import { useHttp } from '../../hooks/http.hook';
-import { fetchCategories, activeCategoryChanged } from '../../store/actions';
+import { fetchCategories } from '../../store/actions';
+import { activeCategoryChanged } from '../../store/slices/categorySlice';
 import Spinner from '../spinner/Spinner';
 
 const AphorismCategories = () => {

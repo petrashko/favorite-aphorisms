@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 //
-import aphorism from './reducers/aphorism.js';
-import category from './reducers/category.js';
+import aphorism from './slices/aphorismSlice.js';
+import category from './slices/categorySlice.js';
 
 const store = configureStore({
     reducer: {
